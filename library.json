@@ -1,0 +1,12 @@
+{
+	"id": "{0A762BB3-7A3F-4ED8-A275-59A58938F00B}",
+	"author": "Ch. Damsky",
+	"name": "IPSymconCsv2Archive",
+	"url": "https://github.com/demel42/IPSymconCsv2Archive",
+	"compatibility": {
+		"version": "4.4"
+	},
+	"version": "1.0",
+	"build": 0,
+	"date": 1534508260
+}
