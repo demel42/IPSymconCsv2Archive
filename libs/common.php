@@ -161,10 +161,12 @@ trait Csv2ArchiveCommon
         return isset($data[$var]) ? $data[$var] : $dflt;
     }
 
-	// Ausgabe einer bool
-	function bool2str($bval) {
-	    if (is_bool($bval))
-			return($bval ? "true" : "false");
-		return($bval);
-	}
+    // Ausgabe einer bool
+    public function bool2str($bval)
+    {
+        if (is_bool($bval)) {
+            return $bval ? 'true' : 'false';
+        }
+        return $bval;
+    }
 }

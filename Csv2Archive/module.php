@@ -69,11 +69,11 @@ class Csv2Archive extends IPSModule
     {
         parent::Create();
 
-		/*
+        /*
         $this->RegisterPropertyInteger('update_interval', '0');
         $this->RegisterPropertyInteger('preferred_server', '0');
         $this->RegisterPropertyString('exclude_server', '');
-		*/
+        */
     }
 
     public function ApplyChanges()
@@ -87,28 +87,28 @@ class Csv2Archive extends IPSModule
     {
         $formElements = [];
 
-		$options = [];
-		$options[] = ['label' => $this->Translate('UNIX (seconds from 01.01.1970 00:00:00)'), 'value' => TSTAMP_FMT_UNIX];
-		$options[] = ['label' => $this->Translate('Compact (i.e. 20170102153020)'), 'value' => TSTAMP_FMT_LOG];
-		$options[] = ['label' => $this->Translate('ISO (i.e. 2017-01-02 15:30:20)'), 'value' => TSTAMP_FMT_ISO];
-		$options[] = ['label' => $this->Translate('German (i.e. 02.01.2017 15:30:20)'), 'value' => TSTAMP_FMT_DE];
-		$options[] = ['label' => $this->Translate('English (i.e. 2017/01/02 15:30:20)'), 'value' => TSTAMP_FMT_EN];
+        $options = [];
+        $options[] = ['label' => $this->Translate('UNIX (seconds from 01.01.1970 00:00:00)'), 'value' => TSTAMP_FMT_UNIX];
+        $options[] = ['label' => $this->Translate('Compact (i.e. 20170102153020)'), 'value' => TSTAMP_FMT_LOG];
+        $options[] = ['label' => $this->Translate('ISO (i.e. 2017-01-02 15:30:20)'), 'value' => TSTAMP_FMT_ISO];
+        $options[] = ['label' => $this->Translate('German (i.e. 02.01.2017 15:30:20)'), 'value' => TSTAMP_FMT_DE];
+        $options[] = ['label' => $this->Translate('English (i.e. 2017/01/02 15:30:20)'), 'value' => TSTAMP_FMT_EN];
 
         $formActions = [];
-		$formActions[] = ['type' => 'Select', 'name' => 'tstamp_type', 'caption' => $this->Translate('Timestamp format'), 'options' => $options];
+        $formActions[] = ['type' => 'Select', 'name' => 'tstamp_type', 'caption' => $this->Translate('Timestamp format'), 'options' => $options];
         $formActions[] = ['type' => 'ValidationTextBox', 'name' => 'delimiter', 'caption' => $this->Translate('Delimiter')];
-		$formActions[] = ['type' => 'IntervalBox', 'name' => 'tstamp_col', 'caption' => $this->Translate('Column of timestamp')];
-		$formActions[] = ['type' => 'IntervalBox', 'name' => 'value_col', 'caption' => $this->Translate('Column of value')];
-		$formActions[] = ['type' => 'CheckBox', 'name' => 'with_header', 'caption' => $this->Translate('with header in 1st line')];
-		$formActions[] = ['type' => 'CheckBox', 'name' => 'overwrite_old', 'caption' => $this->Translate('overwrite old data')];
-		$formActions[] = ['type' => 'CheckBox', 'name' => 'string_is_base64', 'caption' => $this->Translate('value in csv ist base64-coded (if string)')];
-		$formActions[] = ['type' => 'CheckBox', 'name' => 'do_reaggregate', 'caption' => $this->Translate('reaggregate variable')];
+        $formActions[] = ['type' => 'IntervalBox', 'name' => 'tstamp_col', 'caption' => $this->Translate('Column of timestamp')];
+        $formActions[] = ['type' => 'IntervalBox', 'name' => 'value_col', 'caption' => $this->Translate('Column of value')];
+        $formActions[] = ['type' => 'CheckBox', 'name' => 'with_header', 'caption' => $this->Translate('with header in 1st line')];
+        $formActions[] = ['type' => 'CheckBox', 'name' => 'overwrite_old', 'caption' => $this->Translate('overwrite old data')];
+        $formActions[] = ['type' => 'CheckBox', 'name' => 'string_is_base64', 'caption' => $this->Translate('value in csv ist base64-coded (if string)')];
+        $formActions[] = ['type' => 'CheckBox', 'name' => 'do_reaggregate', 'caption' => $this->Translate('reaggregate variable')];
 
-		$formActions[] = ['type' => 'SelectVariable', 'name' => 'varID', 'caption' => $this->Translate('Variable')];
-		$formActions[] = ['type' => 'SelectFile', 'name' => 'data', 'caption' => $this->Translate('CSV-Datei'), 'extensions' => '.csv'];
+        $formActions[] = ['type' => 'SelectVariable', 'name' => 'varID', 'caption' => $this->Translate('Variable')];
+        $formActions[] = ['type' => 'SelectFile', 'name' => 'data', 'caption' => $this->Translate('CSV-Datei'), 'extensions' => '.csv'];
 
-		$formActions[] = ['type' => 'Button', 'caption' => 'Test Import', 'onClick' => 'Csv2Archive_Import($id, $tstamp_type, $delimiter, $with_header, $tstamp_col, $value_col, $overwrite_old, $string_is_base64, $do_reaggregate, $data, $varID, true);'];
-		$formActions[] = ['type' => 'Button', 'caption' => 'Perform Import', 'onClick' => 'Csv2Archive_Import($id, $tstamp_type, $delimiter, $with_header, $tstamp_col, $value_col, $overwrite_old, $string_is_base64, $do_reaggregate, $data, $varID, false);'];
+        $formActions[] = ['type' => 'Button', 'caption' => 'Test Import', 'onClick' => 'Csv2Archive_Import($id, $tstamp_type, $delimiter, $with_header, $tstamp_col, $value_col, $overwrite_old, $string_is_base64, $do_reaggregate, $data, $varID, true);'];
+        $formActions[] = ['type' => 'Button', 'caption' => 'Perform Import', 'onClick' => 'Csv2Archive_Import($id, $tstamp_type, $delimiter, $with_header, $tstamp_col, $value_col, $overwrite_old, $string_is_base64, $do_reaggregate, $data, $varID, false);'];
 
         $formStatus = [];
         $formStatus[] = ['code' => '101', 'icon' => 'inactive', 'caption' => 'Instance getting created'];
@@ -120,362 +120,366 @@ class Csv2Archive extends IPSModule
 
     public function Import(int $tstamp_type, string $delimiter, bool $with_header, int $tstamp_col, int $value_col, bool $overwrite_old, bool $string_is_base64, bool $do_reaggregate, string $data, int $varID, bool $test_mode)
     {
-		$with_extended_log = false;
+        $with_extended_log = false;
 
-		$b = 'parameter: ';
-		$b .= 'tstamp_type=' . $tstamp_type . ', ';
-		$b .= 'delimiter="' . $delimiter . '"' . ', ';
-		$b .= 'with_header=' . $this->bool2str($with_header) . ', ';
-		$b .= 'tstamp_col=' . $tstamp_col . ', ';
-		$b .= 'value_col=' . $value_col . ', ';
-		$b .= 'overwrite_old=' . $this->bool2str($overwrite_old) . ', ';
-		$b .= 'string_is_base64=' . $this->bool2str($string_is_base64) . ', ';
-		$b .= 'do_reaggregate=' . $this->bool2str($do_reaggregate) . ', ';
-		$b .= 'test_mode=' . $this->bool2str($test_mode) . ', ';
-		$b .= 'varID=' . $tstamp_type . '(' . IPS_GetName($varID) . ')' . ', ';
-		$b .= 'length of data=' . strlen($data) . ' bytes' . ', ';
-		$this->SendDebug(__FUNCTION__, $b, 0);
+        $b = 'parameter: ';
+        $b .= 'tstamp_type=' . $tstamp_type . ', ';
+        $b .= 'delimiter="' . $delimiter . '"' . ', ';
+        $b .= 'with_header=' . $this->bool2str($with_header) . ', ';
+        $b .= 'tstamp_col=' . $tstamp_col . ', ';
+        $b .= 'value_col=' . $value_col . ', ';
+        $b .= 'overwrite_old=' . $this->bool2str($overwrite_old) . ', ';
+        $b .= 'string_is_base64=' . $this->bool2str($string_is_base64) . ', ';
+        $b .= 'do_reaggregate=' . $this->bool2str($do_reaggregate) . ', ';
+        $b .= 'test_mode=' . $this->bool2str($test_mode) . ', ';
+        $b .= 'varID=' . $tstamp_type . '(' . IPS_GetName($varID) . ')' . ', ';
+        $b .= 'length of data=' . strlen($data) . ' bytes' . ', ';
+        $this->SendDebug(__FUNCTION__, $b, 0);
 
-		$archiveID = IPS_GetInstanceListByModuleID("{43192F0B-135B-4CE7-A0A7-1475603F3060}")[0];
+        $archiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
 
-		if (AC_GetLoggingStatus($archiveID, $varID) && AC_GetAggregationType($archiveID, $varID) == 1) {
-			echo $this->Translate('Variable has no standard-aggregation') . "\n";
-			return;
-		}
+        if (AC_GetLoggingStatus($archiveID, $varID) && AC_GetAggregationType($archiveID, $varID) == 1) {
+            echo $this->Translate('Variable has no standard-aggregation') . "\n";
+            return;
+        }
 
-		if (!$tstamp_col || !$value_col || $tstamp_col == $value_col) {
-			echo $this->Translate('column-number(s) are erroneous') . "\n";
-			return;
-		}
+        if (!$tstamp_col || !$value_col || $tstamp_col == $value_col) {
+            echo $this->Translate('column-number(s) are erroneous') . "\n";
+            return;
+        }
 
-		if (!strlen($data)) {
-			echo $this->Translate('no data') . "\n";
-			return;
-		}
+        if (!strlen($data)) {
+            echo $this->Translate('no data') . "\n";
+            return;
+        }
 
-		if ($varID == '' || $varID == 0) {
-			echo $this->Translate('no variable given') . "\n";
-			return;
-		}
+        if ($varID == '' || $varID == 0) {
+            echo $this->Translate('no variable given') . "\n";
+            return;
+        }
 
-		$r = IPS_GetVariable($varID);
-		$value_dtype = $r['VariableType'];
+        $r = IPS_GetVariable($varID);
+        $value_dtype = $r['VariableType'];
 
-		switch ($tstamp_type) {
-			case TSTAMP_FMT_UNIX:
-				$ts_format = 'U';
-				break;
-			case TSTAMP_FMT_LOG:
-				$ts_format = 'YmdGis';
-				break;
-			case TSTAMP_FMT_ISO:
-				$ts_format = 'Y-m-d H:i:s';
-				break;
-			case TSTAMP_FMT_DE:
-				$ts_format = 'd.m.Y H:i:s';
-				break;
-			case TSTAMP_FMT_EN:
-				$ts_format = 'Y/m/d H:i:s';
-				break;
-			default:
-				echo $this->Translate('invalid timestam-format') . "\n";
-				return;
-		}
+        switch ($tstamp_type) {
+            case TSTAMP_FMT_UNIX:
+                $ts_format = 'U';
+                break;
+            case TSTAMP_FMT_LOG:
+                $ts_format = 'YmdGis';
+                break;
+            case TSTAMP_FMT_ISO:
+                $ts_format = 'Y-m-d H:i:s';
+                break;
+            case TSTAMP_FMT_DE:
+                $ts_format = 'd.m.Y H:i:s';
+                break;
+            case TSTAMP_FMT_EN:
+                $ts_format = 'Y/m/d H:i:s';
+                break;
+            default:
+                echo $this->Translate('invalid timestam-format') . "\n";
+                return;
+        }
 
-		$tstamp_col--;
-		$value_col--;
-		$min_cols = max($tstamp_col, $value_col) + 1;
+        $tstamp_col--;
+        $value_col--;
+        $min_cols = max($tstamp_col, $value_col) + 1;
 
-		$min_tstamp = mktime(0,0,0,1,1,2000);
-		$max_tstamp = time();
+        $min_tstamp = mktime(0, 0, 0, 1, 1, 2000);
+        $max_tstamp = time();
 
-		$rows = explode("\n", $data);
-		$n_row = 0;
-		$errors = [];
-		$values = [];
-		$tstamp_map = [];
-		foreach ($rows as $row) {
-			$n_row++;
-			if ($with_header && $n_row === 1) {
-				continue;
-			}
-			if ($row === "") {
-				continue;
-			}
-			if ($with_extended_log && $n_row % 100 == 0) {
-				IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'n_row=' . $n_row);
-			}
-			$fields = str_getcsv($row, $delimiter);
-			$n_fields = count($fields);
-			if ($n_fields < $min_cols) {
-				$errors[] = [ 'row' => $n_row, 'msg' => $this->Translate('not enough cols')];
-				continue;
-			}
-			
-			$tstamp_s = $fields[$tstamp_col];
-			$value_s = $fields[$value_col];
+        $rows = explode("\n", $data);
+        $n_row = 0;
+        $errors = [];
+        $values = [];
+        $tstamp_map = [];
+        foreach ($rows as $row) {
+            $n_row++;
+            if ($with_header && $n_row === 1) {
+                continue;
+            }
+            if ($row === '') {
+                continue;
+            }
+            if ($with_extended_log && $n_row % 100 == 0) {
+                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'n_row=' . $n_row);
+            }
+            $fields = str_getcsv($row, $delimiter);
+            $n_fields = count($fields);
+            if ($n_fields < $min_cols) {
+                $errors[] = ['row' => $n_row, 'msg' => $this->Translate('not enough cols')];
+                continue;
+            }
 
-			$tm = date_create_from_format ($ts_format , $tstamp_s);
-			if (!$tm) {
-				$errors[] = [ 'row' => $n_row, 'msg' => $this->Translate('not a valid timestamp')];
-				continue;
-			}
-			$tstamp = $tm->format('U');
-			if ($tstamp < $min_tstamp) {
-				$errors[] = [ 'row' => $n_row, 'msg' => $this->Translate('timestamp is too old')];
-				continue;
-			}
-			if ($tstamp > $max_tstamp) {
-				$errors[] = [ 'row' => $n_row, 'msg' => $this->Translate('timestamp is in the future')];
-				continue;
-			}
-			if (in_array($tstamp, $tstamp_map)) {
-				$errors[] = [ 'row' => $n_row, 'msg' => $this->Translate('duplicate timestamp')];
-				continue;
-			}
-			$tstamp_map[] = $tstamp;
-			
-			switch ($value_dtype) {
-				case IPS_BOOLEAN:
-					$ok = false;
-					if (is_bool($value_s)) {
-						$b = boolval($s);
-						$ok = true;
-					} else if (in_array(strtolower($value_s), [ '1', 'ja', 'yes', 'true' ])) {
-						$ok = true;
-						$b = true;
-					} else 	if (in_array(strtolower($value_s), [ '0', 'nein', 'no', 'false' ])) {
-						$ok = true;
-						$b = false;
-					}
-					if (!$ok) {
-						$errors[] = [ 'row' => $n_row, 'msg' => $this->Translate('value is invalid')];
-						continue;
-					}
-					$value = $b ? '1' : '0';
-					break;
-				case IPS_INTEGER:
-					if (!preg_match('|^[-+]?[0-9]+$|', $value_s)) {
-						$errors[] = [ 'row' => $n_row, 'msg' => $this->Translate('value is invalid')];
-						continue;
-					}
-					$value = intval($value_s);
-					break;
-				case IPS_FLOAT:
-					if (!preg_match('|[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?|', $value_s)) {
-						$errors[] = [ 'row' => $n_row, 'msg' => $this->Translate('value is invalid')];
-						continue;
-					}
-					$f = floatval($value_s);
-					$d = strlen($f) - strlen(floor($f));
-					if ($d) $d--;
-					$value = number_format($f, $d, '.', '');
-					break;
-				case IPS_STRING:
-					$value = $string_is_base64 ? $value_s : base64_encode($value_s);
-					break;
-			}
-			$values[$tstamp] = $value;
-		}
+            $tstamp_s = $fields[$tstamp_col];
+            $value_s = $fields[$value_col];
 
-		if ($with_extended_log)
-		IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'n_values=' . count($values));
-		$this->SendDebug(__FUNCTION__, 'n_values=' . count($values), 0);
+            $tm = date_create_from_format($ts_format, $tstamp_s);
+            if (!$tm) {
+                $errors[] = ['row' => $n_row, 'msg' => $this->Translate('not a valid timestamp')];
+                continue;
+            }
+            $tstamp = $tm->format('U');
+            if ($tstamp < $min_tstamp) {
+                $errors[] = ['row' => $n_row, 'msg' => $this->Translate('timestamp is too old')];
+                continue;
+            }
+            if ($tstamp > $max_tstamp) {
+                $errors[] = ['row' => $n_row, 'msg' => $this->Translate('timestamp is in the future')];
+                continue;
+            }
+            if (in_array($tstamp, $tstamp_map)) {
+                $errors[] = ['row' => $n_row, 'msg' => $this->Translate('duplicate timestamp')];
+                continue;
+            }
+            $tstamp_map[] = $tstamp;
 
-		echo 'number of data-rows: ' . count($values) . "\n\n";
+            switch ($value_dtype) {
+                case IPS_BOOLEAN:
+                    $ok = false;
+                    if (is_bool($value_s)) {
+                        $b = boolval($s);
+                        $ok = true;
+                    } elseif (in_array(strtolower($value_s), ['1', 'ja', 'yes', 'true'])) {
+                        $ok = true;
+                        $b = true;
+                    } elseif (in_array(strtolower($value_s), ['0', 'nein', 'no', 'false'])) {
+                        $ok = true;
+                        $b = false;
+                    }
+                    if (!$ok) {
+                        $errors[] = ['row' => $n_row, 'msg' => $this->Translate('value is invalid')];
+                        continue;
+                    }
+                    $value = $b ? '1' : '0';
+                    break;
+                case IPS_INTEGER:
+                    if (!preg_match('|^[-+]?[0-9]+$|', $value_s)) {
+                        $errors[] = ['row' => $n_row, 'msg' => $this->Translate('value is invalid')];
+                        continue;
+                    }
+                    $value = intval($value_s);
+                    break;
+                case IPS_FLOAT:
+                    if (!preg_match('|[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?|', $value_s)) {
+                        $errors[] = ['row' => $n_row, 'msg' => $this->Translate('value is invalid')];
+                        continue;
+                    }
+                    $f = floatval($value_s);
+                    $d = strlen($f) - strlen(floor($f));
+                    if ($d) {
+                        $d--;
+                    }
+                    $value = number_format($f, $d, '.', '');
+                    break;
+                case IPS_STRING:
+                    $value = $string_is_base64 ? $value_s : base64_encode($value_s);
+                    break;
+            }
+            $values[$tstamp] = $value;
+        }
 
-		if (count($errors)) {
-			$b = "\n" . $this->Translate('error(s) found:') . "\n";
-			foreach ($errors as $error) {
-				$row = $error['row'];
-				$msg = $error['msg'];
-				$b .= '  ' . $this->Translate('Row') . ' ' . $row . ': ' . $msg . "\n";
-			}
-			echo $b;
-			return;
-		}
+        if ($with_extended_log) {
+            IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'n_values=' . count($values));
+        }
+        $this->SendDebug(__FUNCTION__, 'n_values=' . count($values), 0);
 
-		ksort($values, SORT_NUMERIC);
+        echo 'number of data-rows: ' . count($values) . "\n\n";
 
-		$this->SendDebug(__FUNCTION__, 'values=' . print_r($values, true), 0);
+        if (count($errors)) {
+            $b = "\n" . $this->Translate('error(s) found:') . "\n";
+            foreach ($errors as $error) {
+                $row = $error['row'];
+                $msg = $error['msg'];
+                $b .= '  ' . $this->Translate('Row') . ' ' . $row . ': ' . $msg . "\n";
+            }
+            echo $b;
+            return;
+        }
 
+        ksort($values, SORT_NUMERIC);
 
-		$y = '';
-		$m = '';
-		$new_values = [];
-		$new_tstamp_map = [];
-		$need_reaggregate = false;
-		$n_inserted = 0;
-		$n_updated = 0;
-		$n_files = 0;
-		$total_inserted = 0;
-		$total_updated = 0;
-		foreach ($values as $tstamp => $value) {
-			$_y = date("Y", $tstamp);
-			$_m = date("m", $tstamp);
-			if ($with_extended_log)
-				IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, ' ... tstamp=' . $tstamp . ' / ' . date('d.m.Y H:i:s', $tstamp) . ', value=' . $value . ', fn=' . $_y . '/' . $_m);
-			if ($_y != $y || $_m != $m) {
-				if (count($new_values) > 0) {
-					$n_files++;
-					$b = file_exists($fname) ? 'update' : 'create';
-					$b .= ' file ' . $fname . ' (inserted=' . $n_inserted . ', updated=' . $n_updated . ') => ';
+        $this->SendDebug(__FUNCTION__, 'values=' . print_r($values, true), 0);
 
-					if (!$test_mode) {
-						ksort($new_values, SORT_NUMERIC);
+        $y = '';
+        $m = '';
+        $new_values = [];
+        $new_tstamp_map = [];
+        $need_reaggregate = false;
+        $n_inserted = 0;
+        $n_updated = 0;
+        $n_files = 0;
+        $total_inserted = 0;
+        $total_updated = 0;
+        foreach ($values as $tstamp => $value) {
+            $_y = date('Y', $tstamp);
+            $_m = date('m', $tstamp);
+            if ($with_extended_log) {
+                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, ' ... tstamp=' . $tstamp . ' / ' . date('d.m.Y H:i:s', $tstamp) . ', value=' . $value . ', fn=' . $_y . '/' . $_m);
+            }
+            if ($_y != $y || $_m != $m) {
+                if (count($new_values) > 0) {
+                    $n_files++;
+                    $b = file_exists($fname) ? 'update' : 'create';
+                    $b .= ' file ' . $fname . ' (inserted=' . $n_inserted . ', updated=' . $n_updated . ') => ';
 
-						$buf = '';
-						foreach ($new_values as $new_tstamp => $new_value) {
-							$buf .= $new_tstamp . ',' . $new_value . "\n";
-						}
+                    if (!$test_mode) {
+                        ksort($new_values, SORT_NUMERIC);
 
-						$tmp_fname = $fname . '~';
-						$fp = fopen($tmp_fname, "w");
-						$ok = true;
-						if (!$fp) {
-							echo "unable to create file $tmp_fname\n";
-							$ok = false;
-						}
-						if ($ok && !fwrite($fp, $buf)) {
-							echo "unable to write " . strlen($buf) . " bytes to file $tmp_fname\n";
-							$ok = false;
-						}
-						if ($ok && !fclose($fp)) {
-							echo "unable to close file $fname\n";
-							$ok = false;
-						}
-						if ($ok && file_exists($fname) && !unlink($fname)) {
-							echo "unable to delete file $fname\n";
-							$ok = false;
-						}
-						if ($ok && !rename($tmp_fname, $fname)) {
-							echo "unable to rename file $tmp_fname to $fname\n";
-							$ok = false;
-						}
-						if ($ok) {
-							$need_reaggregate = true;
-							$b .= 'ok';
-						} else {
-							$b .= 'failed';
-						}
+                        $buf = '';
+                        foreach ($new_values as $new_tstamp => $new_value) {
+                            $buf .= $new_tstamp . ',' . $new_value . "\n";
+                        }
 
-					} else {
-						$b .= 'testmode';
-					}
-					echo $b . "\n";
-				}
+                        $tmp_fname = $fname . '~';
+                        $fp = fopen($tmp_fname, 'w');
+                        $ok = true;
+                        if (!$fp) {
+                            echo "unable to create file $tmp_fname\n";
+                            $ok = false;
+                        }
+                        if ($ok && !fwrite($fp, $buf)) {
+                            echo 'unable to write ' . strlen($buf) . " bytes to file $tmp_fname\n";
+                            $ok = false;
+                        }
+                        if ($ok && !fclose($fp)) {
+                            echo "unable to close file $fname\n";
+                            $ok = false;
+                        }
+                        if ($ok && file_exists($fname) && !unlink($fname)) {
+                            echo "unable to delete file $fname\n";
+                            $ok = false;
+                        }
+                        if ($ok && !rename($tmp_fname, $fname)) {
+                            echo "unable to rename file $tmp_fname to $fname\n";
+                            $ok = false;
+                        }
+                        if ($ok) {
+                            $need_reaggregate = true;
+                            $b .= 'ok';
+                        } else {
+                            $b .= 'failed';
+                        }
+                    } else {
+                        $b .= 'testmode';
+                    }
+                    echo $b . "\n";
+                }
 
-				$new_values = [];
-				$new_tstamp_map = [];
-				$n_inserted = 0;
-				$n_updated = 0;
-				
-				$y = $_y;
-				$m = $_m;
+                $new_values = [];
+                $new_tstamp_map = [];
+                $n_inserted = 0;
+                $n_updated = 0;
 
-				$fname = IPS_GetKernelDir() . 'db' . DIRECTORY_SEPARATOR . $y;
-				if (!file_exists($fname)) {
-					if (!mkdir($fname)) {
-						echo "unable to create directory $fname";
-						continue;
-					}
-				} else if (!is_dir($fname)) {
-					echo "$fname is not a directory";
-					continue;
-				}
-				$fname .= DIRECTORY_SEPARATOR . $m;
-				if (!file_exists($fname)) {
-					if (!mkdir($fname)) {
-						echo "unable to create directory $fname";
-						continue;
-					}
-				} else if (!is_dir($fname)) {
-					echo "$fname is not a directory";
-					continue;
-				}
-				$fname .= DIRECTORY_SEPARATOR . $varID . '.csv';
-				IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'fname=' . $fname);
-				if (file_exists($fname)) {
-					$data = file_get_contents ($fname);
-					$rows = explode("\n", $data);
-					foreach ($rows as $row) {
-						if ($row == '') continue;
-						$fields = str_getcsv($row, ',');
-						$new_tstamp = $fields[0];
-						$new_value = $fields[1];
-						$new_values[$new_tstamp] = $new_value;
-						$new_tstamp_map[] = $new_tstamp;
-					}
-				}
-			}
-			if (in_array($tstamp, $new_tstamp_map)) {
-				if (!$overwrite_old) {
-					$errors[] = [ 'row' => $n_row, 'msg' => 'timestamp exists in archive'];
-					continue;
-				}
-				$n_updated++;
-				$total_updated++;
-			} else {
-				$n_inserted++;
-				$total_inserted++;
-			}
-			$new_values[$tstamp] = $value;	
-		}
+                $y = $_y;
+                $m = $_m;
 
-		if (count($new_values) > 0) {
-			$n_files++;
-			$b = file_exists($fname) ? 'update' : 'create';
-			$b .= ' file ' . $fname . ' (inserted=' . $n_inserted . ', updateed=' . $n_updated . ') => ';
+                $fname = IPS_GetKernelDir() . 'db' . DIRECTORY_SEPARATOR . $y;
+                if (!file_exists($fname)) {
+                    if (!mkdir($fname)) {
+                        echo "unable to create directory $fname";
+                        continue;
+                    }
+                } elseif (!is_dir($fname)) {
+                    echo "$fname is not a directory";
+                    continue;
+                }
+                $fname .= DIRECTORY_SEPARATOR . $m;
+                if (!file_exists($fname)) {
+                    if (!mkdir($fname)) {
+                        echo "unable to create directory $fname";
+                        continue;
+                    }
+                } elseif (!is_dir($fname)) {
+                    echo "$fname is not a directory";
+                    continue;
+                }
+                $fname .= DIRECTORY_SEPARATOR . $varID . '.csv';
+                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'fname=' . $fname);
+                if (file_exists($fname)) {
+                    $data = file_get_contents($fname);
+                    $rows = explode("\n", $data);
+                    foreach ($rows as $row) {
+                        if ($row == '') {
+                            continue;
+                        }
+                        $fields = str_getcsv($row, ',');
+                        $new_tstamp = $fields[0];
+                        $new_value = $fields[1];
+                        $new_values[$new_tstamp] = $new_value;
+                        $new_tstamp_map[] = $new_tstamp;
+                    }
+                }
+            }
+            if (in_array($tstamp, $new_tstamp_map)) {
+                if (!$overwrite_old) {
+                    $errors[] = ['row' => $n_row, 'msg' => 'timestamp exists in archive'];
+                    continue;
+                }
+                $n_updated++;
+                $total_updated++;
+            } else {
+                $n_inserted++;
+                $total_inserted++;
+            }
+            $new_values[$tstamp] = $value;
+        }
 
-			if (!$test_mode) {
-				ksort($new_values, SORT_NUMERIC);
+        if (count($new_values) > 0) {
+            $n_files++;
+            $b = file_exists($fname) ? 'update' : 'create';
+            $b .= ' file ' . $fname . ' (inserted=' . $n_inserted . ', updateed=' . $n_updated . ') => ';
 
-				$buf = '';
-				foreach ($new_values as $new_tstamp => $new_value) {
-					$buf .= $new_tstamp . ',' . $new_value . "\n";
-				}
+            if (!$test_mode) {
+                ksort($new_values, SORT_NUMERIC);
 
-				$tmp_fname = $fname . '~';
-				$fp = fopen($tmp_fname, "w");
-				$ok = true;
-				if (!$fp) {
-					echo "unable to create file $tmp_fname\n";
-					$ok = false;
-				}
-				if ($ok && !fwrite($fp, $buf)) {
-					echo "unable to write " . strlen($buf) . " bytes to file $tmp_fname\n";
-					$ok = false;
-				}
-				if ($ok && !fclose($fp)) {
-					echo "unable to close file $fname\n";
-					$ok = false;
-				}
-				if ($ok && file_exists($fname) && !unlink($fname)) {
-					echo "unable to delete file $fname\n";
-					$ok = false;
-				}
-				if ($ok && !rename($tmp_fname, $fname)) {
-					echo "unable to rename file $tmp_fname to $fname\n";
-					$ok = false;
-				}
-				if ($ok) {
-					$need_reaggregate = true;
-					$b .= 'ok';
-				} else {
-					$b .= 'failed';
-				}
-			} else {
-				$b .= 'testmode';
-			}
-			echo $b . "\n";
-		}
+                $buf = '';
+                foreach ($new_values as $new_tstamp => $new_value) {
+                    $buf .= $new_tstamp . ',' . $new_value . "\n";
+                }
 
-		echo "\n";
-		echo "files=$n_files, rows inserted=$n_inserted, rows updated=$n_updated\n";
+                $tmp_fname = $fname . '~';
+                $fp = fopen($tmp_fname, 'w');
+                $ok = true;
+                if (!$fp) {
+                    echo "unable to create file $tmp_fname\n";
+                    $ok = false;
+                }
+                if ($ok && !fwrite($fp, $buf)) {
+                    echo 'unable to write ' . strlen($buf) . " bytes to file $tmp_fname\n";
+                    $ok = false;
+                }
+                if ($ok && !fclose($fp)) {
+                    echo "unable to close file $fname\n";
+                    $ok = false;
+                }
+                if ($ok && file_exists($fname) && !unlink($fname)) {
+                    echo "unable to delete file $fname\n";
+                    $ok = false;
+                }
+                if ($ok && !rename($tmp_fname, $fname)) {
+                    echo "unable to rename file $tmp_fname to $fname\n";
+                    $ok = false;
+                }
+                if ($ok) {
+                    $need_reaggregate = true;
+                    $b .= 'ok';
+                } else {
+                    $b .= 'failed';
+                }
+            } else {
+                $b .= 'testmode';
+            }
+            echo $b . "\n";
+        }
 
-		if ($do_reaggregate && $need_reaggregate) {
-			IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'do_reaggregate=' . $this->bool2str($do_reaggregate) . ', need_reaggregate=' . $this->bool2str($need_reaggregate));
-			AC_ReAggregateVariable($archiveID, $varID);
-		}
-	}
+        echo "\n";
+        echo "files=$n_files, rows inserted=$n_inserted, rows updated=$n_updated\n";
+
+        if ($do_reaggregate && $need_reaggregate) {
+            IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'do_reaggregate=' . $this->bool2str($do_reaggregate) . ', need_reaggregate=' . $this->bool2str($need_reaggregate));
+            AC_ReAggregateVariable($archiveID, $varID);
+        }
+    }
 }
