@@ -68,12 +68,6 @@ class Csv2Archive extends IPSModule
     public function Create()
     {
         parent::Create();
-
-        /*
-        $this->RegisterPropertyInteger('update_interval', '0');
-        $this->RegisterPropertyInteger('preferred_server', '0');
-        $this->RegisterPropertyString('exclude_server', '');
-        */
     }
 
     public function ApplyChanges()
@@ -120,8 +114,6 @@ class Csv2Archive extends IPSModule
 
     public function Import(int $tstamp_type, string $delimiter, bool $with_header, int $tstamp_col, int $value_col, bool $overwrite_old, bool $string_is_base64, bool $do_reaggregate, string $data, int $varID, bool $test_mode)
     {
-        $with_extended_log = false;
-
         $b = 'parameter: ';
         $b .= 'tstamp_type=' . $tstamp_type . ', ';
         $b .= 'delimiter="' . $delimiter . '"' . ', ';
@@ -190,6 +182,9 @@ class Csv2Archive extends IPSModule
         $max_tstamp = time();
 
         $rows = explode("\n", $data);
+
+        $this->SendDebug(__FUNCTION__, 'rows=' . print_r($rows, true), 0);
+
         $n_row = 0;
         $errors = [];
         $values = [];
@@ -201,9 +196,6 @@ class Csv2Archive extends IPSModule
             }
             if ($row === '') {
                 continue;
-            }
-            if ($with_extended_log && $n_row % 100 == 0) {
-                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'n_row=' . $n_row);
             }
             $fields = str_getcsv($row, $delimiter);
             $n_fields = count($fields);
@@ -217,20 +209,28 @@ class Csv2Archive extends IPSModule
 
             $tm = date_create_from_format($ts_format, $tstamp_s);
             if (!$tm) {
-                $errors[] = ['row' => $n_row, 'msg' => $this->Translate('not a valid timestamp')];
+				$e = 'not a valid timestamp';
+				$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                 continue;
             }
             $tstamp = $tm->format('U');
             if ($tstamp < $min_tstamp) {
-                $errors[] = ['row' => $n_row, 'msg' => $this->Translate('timestamp is too old')];
+				$e = 'timestamp is too old';
+				$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                 continue;
             }
             if ($tstamp > $max_tstamp) {
-                $errors[] = ['row' => $n_row, 'msg' => $this->Translate('timestamp is in the future')];
+				$e = 'timestamp is in the future';
+				$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                 continue;
             }
             if (in_array($tstamp, $tstamp_map)) {
-                $errors[] = ['row' => $n_row, 'msg' => $this->Translate('duplicate timestamp')];
+				$e = 'duplicate timestamp';
+				$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                 continue;
             }
             $tstamp_map[] = $tstamp;
@@ -249,21 +249,27 @@ class Csv2Archive extends IPSModule
                         $b = false;
                     }
                     if (!$ok) {
-                        $errors[] = ['row' => $n_row, 'msg' => $this->Translate('value is invalid')];
+						$e = 'value is invalid';
+						$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                        $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                         continue;
                     }
                     $value = $b ? '1' : '0';
                     break;
                 case IPS_INTEGER:
                     if (!preg_match('|^[-+]?[0-9]+$|', $value_s)) {
-                        $errors[] = ['row' => $n_row, 'msg' => $this->Translate('value is invalid')];
+						$e = 'value is invalid';
+						$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                        $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                         continue;
                     }
                     $value = intval($value_s);
                     break;
                 case IPS_FLOAT:
                     if (!preg_match('|[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?|', $value_s)) {
-                        $errors[] = ['row' => $n_row, 'msg' => $this->Translate('value is invalid')];
+						$e = 'value is invalid';
+						$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                        $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                         continue;
                     }
                     $f = floatval($value_s);
@@ -280,15 +286,12 @@ class Csv2Archive extends IPSModule
             $values[$tstamp] = $value;
         }
 
-        if ($with_extended_log) {
-            IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'n_values=' . count($values));
-        }
         $this->SendDebug(__FUNCTION__, 'n_values=' . count($values), 0);
 
-        echo 'number of data-rows: ' . count($values) . "\n\n";
+        echo $this->Translate('number of data-rows') . ': ' . count($values) . "\n\n";
 
         if (count($errors)) {
-            $b = "\n" . $this->Translate('error(s) found:') . "\n";
+            $b = "\n" . $this->Translate('error(s) found') . "\n";
             foreach ($errors as $error) {
                 $row = $error['row'];
                 $msg = $error['msg'];
@@ -299,8 +302,6 @@ class Csv2Archive extends IPSModule
         }
 
         ksort($values, SORT_NUMERIC);
-
-        $this->SendDebug(__FUNCTION__, 'values=' . print_r($values, true), 0);
 
         $y = '';
         $m = '';
@@ -313,11 +314,10 @@ class Csv2Archive extends IPSModule
         $total_inserted = 0;
         $total_updated = 0;
         foreach ($values as $tstamp => $value) {
+			$this->SendDebug(__FUNCTION__, ' ... tstamp=' . $tstamp . ' / ' . date('d.m.Y H:i:s', $tstamp) . ', value=' . $value, 0);
+
             $_y = date('Y', $tstamp);
             $_m = date('m', $tstamp);
-            if ($with_extended_log) {
-                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, ' ... tstamp=' . $tstamp . ' / ' . date('d.m.Y H:i:s', $tstamp) . ', value=' . $value . ', fn=' . $_y . '/' . $_m);
-            }
             if ($_y != $y || $_m != $m) {
                 if (count($new_values) > 0) {
                     $n_files++;
@@ -365,6 +365,7 @@ class Csv2Archive extends IPSModule
                         $b .= 'testmode';
                     }
                     echo $b . "\n";
+					$this->SendDebug(__FUNCTION__, $b, 0);
                 }
 
                 $new_values = [];
@@ -429,7 +430,7 @@ class Csv2Archive extends IPSModule
         if (count($new_values) > 0) {
             $n_files++;
             $b = file_exists($fname) ? 'update' : 'create';
-            $b .= ' file ' . $fname . ' (inserted=' . $n_inserted . ', updateed=' . $n_updated . ') => ';
+            $b .= ' file ' . $fname . ' (inserted=' . $n_inserted . ', updated=' . $n_updated . ') => ';
 
             if (!$test_mode) {
                 ksort($new_values, SORT_NUMERIC);
@@ -472,13 +473,14 @@ class Csv2Archive extends IPSModule
                 $b .= 'testmode';
             }
             echo $b . "\n";
+			$this->SendDebug(__FUNCTION__, $b, 0);
         }
 
         echo "\n";
         echo "files=$n_files, rows inserted=$n_inserted, rows updated=$n_updated\n";
 
         if ($do_reaggregate && $need_reaggregate) {
-            IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'do_reaggregate=' . $this->bool2str($do_reaggregate) . ', need_reaggregate=' . $this->bool2str($need_reaggregate));
+            $this->SendDebug(__FUNCTION__, 're-aggregate', 0);
             AC_ReAggregateVariable($archiveID, $varID);
         }
     }
