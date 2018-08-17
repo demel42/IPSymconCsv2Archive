@@ -1,10 +1,10 @@
 {
 	"id": "{C3129C82-96B3-44AA-A98A-0AC5E5A12917}",
 	"name": "Csv2Archive",
-	"type": 3,
+	"type": 0,
 	"vendor": "",
 	"aliases": [
-		"Archive"
+		"Csv2Archive"
 	],
 	"parentRequirements": [],
 	"childRequirements": [],
