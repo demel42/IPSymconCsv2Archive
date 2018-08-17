@@ -209,27 +209,27 @@ class Csv2Archive extends IPSModule
 
             $tm = date_create_from_format($ts_format, $tstamp_s);
             if (!$tm) {
-				$e = 'not a valid timestamp';
-				$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                $e = 'not a valid timestamp';
+                $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                 $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                 continue;
             }
             $tstamp = $tm->format('U');
             if ($tstamp < $min_tstamp) {
-				$e = 'timestamp is too old';
-				$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                $e = 'timestamp is too old';
+                $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                 $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                 continue;
             }
             if ($tstamp > $max_tstamp) {
-				$e = 'timestamp is in the future';
-				$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                $e = 'timestamp is in the future';
+                $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                 $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                 continue;
             }
             if (in_array($tstamp, $tstamp_map)) {
-				$e = 'duplicate timestamp';
-				$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                $e = 'duplicate timestamp';
+                $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                 $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                 continue;
             }
@@ -249,8 +249,8 @@ class Csv2Archive extends IPSModule
                         $b = false;
                     }
                     if (!$ok) {
-						$e = 'value is invalid';
-						$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                        $e = 'value is invalid';
+                        $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                         $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                         continue;
                     }
@@ -258,8 +258,8 @@ class Csv2Archive extends IPSModule
                     break;
                 case IPS_INTEGER:
                     if (!preg_match('|^[-+]?[0-9]+$|', $value_s)) {
-						$e = 'value is invalid';
-						$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                        $e = 'value is invalid';
+                        $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                         $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                         continue;
                     }
@@ -267,8 +267,8 @@ class Csv2Archive extends IPSModule
                     break;
                 case IPS_FLOAT:
                     if (!preg_match('|[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?|', $value_s)) {
-						$e = 'value is invalid';
-						$this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
+                        $e = 'value is invalid';
+                        $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                         $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                         continue;
                     }
@@ -314,7 +314,7 @@ class Csv2Archive extends IPSModule
         $total_inserted = 0;
         $total_updated = 0;
         foreach ($values as $tstamp => $value) {
-			$this->SendDebug(__FUNCTION__, ' ... tstamp=' . $tstamp . ' / ' . date('d.m.Y H:i:s', $tstamp) . ', value=' . $value, 0);
+            $this->SendDebug(__FUNCTION__, ' ... tstamp=' . $tstamp . ' / ' . date('d.m.Y H:i:s', $tstamp) . ', value=' . $value, 0);
 
             $_y = date('Y', $tstamp);
             $_m = date('m', $tstamp);
@@ -365,7 +365,7 @@ class Csv2Archive extends IPSModule
                         $b .= 'testmode';
                     }
                     echo $b . "\n";
-					$this->SendDebug(__FUNCTION__, $b, 0);
+                    $this->SendDebug(__FUNCTION__, $b, 0);
                 }
 
                 $new_values = [];
@@ -473,7 +473,7 @@ class Csv2Archive extends IPSModule
                 $b .= 'testmode';
             }
             echo $b . "\n";
-			$this->SendDebug(__FUNCTION__, $b, 0);
+            $this->SendDebug(__FUNCTION__, $b, 0);
         }
 
         echo "\n";
