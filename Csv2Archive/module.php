@@ -449,17 +449,17 @@ class Csv2Archive extends IPSModule
 
             $s = file_exists($fname) ? 'update file' : 'create file';
             $b = ' - '
-                        . $this->Translate($s)
-                        . ' '
-                        . $fname
-                        . ': '
-                        . $this->Translate('items inserted')
-                        . '='
-                        . $n_inserted
-                        . ', '
-                        . $this->Translate('items updated')
-                        . '='
-                        . $n_updated;
+                 . $this->Translate($s)
+                 . ' '
+                 . $fname
+                 . ': '
+                 . $this->Translate('items inserted')
+                 . '='
+                 . $n_inserted
+                 . ', '
+                 . $this->Translate('items updated')
+                 . '='
+                 . $n_updated;
 
             if (!$test_mode) {
                 ksort($new_values, SORT_NUMERIC);
