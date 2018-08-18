@@ -27,11 +27,11 @@ if (@constant('IPS_BASE') == null) {
 
 if (!defined('vtBoolean')) {
     define('vtBoolean', 0);
-	define('vtInteger', 1);
-	define('vtFloat', 2);
-	define('vtString', 3);
-	define('vtArray', 8);
-	define('vtObject', 9);
+    define('vtInteger', 1);
+    define('vtFloat', 2);
+    define('vtString', 3);
+    define('vtArray', 8);
+    define('vtObject', 9);
 }
 
 // Datumsformate
@@ -98,15 +98,15 @@ class Csv2Archive extends IPSModule
         $formActions[] = ['type' => 'SelectFile', 'name' => 'data', 'caption' => 'CSV-Datei', 'extensions' => '.csv'];
 
         $formActions[] = [
-							'type' => 'Button',
-							'caption' => 'Test Import',
-							'onClick' => 'Csv2Archive_Import($id, $tstamp_type, $delimiter, $with_header, $tstamp_col, $value_col, $overwrite_old, $string_is_base64, $do_reaggregate, $data, $varID, true);'
-						];
+                            'type'    => 'Button',
+                            'caption' => 'Test Import',
+                            'onClick' => 'Csv2Archive_Import($id, $tstamp_type, $delimiter, $with_header, $tstamp_col, $value_col, $overwrite_old, $string_is_base64, $do_reaggregate, $data, $varID, true);'
+                        ];
         $formActions[] = [
-							'type' => 'Button',
-							'caption' => 'Perform Import',
-							'onClick' => 'Csv2Archive_Import($id, $tstamp_type, $delimiter, $with_header, $tstamp_col, $value_col, $overwrite_old, $string_is_base64, $do_reaggregate, $data, $varID, false);'
-						];
+                            'type'    => 'Button',
+                            'caption' => 'Perform Import',
+                            'onClick' => 'Csv2Archive_Import($id, $tstamp_type, $delimiter, $with_header, $tstamp_col, $value_col, $overwrite_old, $string_is_base64, $do_reaggregate, $data, $varID, false);'
+                        ];
 
         $formStatus = [];
         $formStatus[] = ['code' => '101', 'icon' => 'inactive', 'caption' => 'Instance getting created'];
@@ -132,8 +132,9 @@ class Csv2Archive extends IPSModule
         $b .= 'length of data=' . strlen($data) . ' bytes' . ', ';
         $this->SendDebug(__FUNCTION__, $b, 0);
 
-		if ($test_mode)
-        echo '***' . $this->Translate('testmode') . '***' . "\n\n";
+        if ($test_mode) {
+            echo '***' . $this->Translate('testmode') . '***' . "\n\n";
+        }
 
         $archiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
 
@@ -331,18 +332,17 @@ class Csv2Archive extends IPSModule
 
                     $s = file_exists($fname) ? 'update file' : 'create file';
                     $b = ' - '
-						. $this->Translate($s)
-						. ' '
-						. $fname
-						. ': '
-						. $this->Translate('items inserted')
-						. '='
-						. $n_inserted
-						. ', '
-						. $this->Translate('items updated')
-						. '='
-						. $n_updated
-						;
+                        . $this->Translate($s)
+                        . ' '
+                        . $fname
+                        . ': '
+                        . $this->Translate('items inserted')
+                        . '='
+                        . $n_inserted
+                        . ', '
+                        . $this->Translate('items updated')
+                        . '='
+                        . $n_updated;
 
                     if (!$test_mode) {
                         ksort($new_values, SORT_NUMERIC);
@@ -447,20 +447,19 @@ class Csv2Archive extends IPSModule
         if (count($new_values) > 0) {
             $total_files++;
 
-                    $s = file_exists($fname) ? 'update file' : 'create file';
-                    $b = ' - '
-						. $this->Translate($s)
-						. ' '
-						. $fname
-						. ': '
-						. $this->Translate('items inserted')
-						. '='
-						. $n_inserted
-						. ', '
-						. $this->Translate('items updated')
-						. '='
-						. $n_updated
-						;
+            $s = file_exists($fname) ? 'update file' : 'create file';
+            $b = ' - '
+                        . $this->Translate($s)
+                        . ' '
+                        . $fname
+                        . ': '
+                        . $this->Translate('items inserted')
+                        . '='
+                        . $n_inserted
+                        . ', '
+                        . $this->Translate('items updated')
+                        . '='
+                        . $n_updated;
 
             if (!$test_mode) {
                 ksort($new_values, SORT_NUMERIC);
@@ -474,30 +473,30 @@ class Csv2Archive extends IPSModule
                 $fp = fopen($tmp_fname, 'w');
                 $ok = true;
                 if (!$fp) {
-					echo $this->Translate('unable to create file') . ' ' . $tmp_fname . "\n";
+                    echo $this->Translate('unable to create file') . ' ' . $tmp_fname . "\n";
                     $ok = false;
                 }
                 if ($ok && !fwrite($fp, $buf)) {
-					echo $this->Translate('unable to write to file') . ' ' . $tmp_fname . ' (' . strlen($buf) . ' bytes)' . "\n";
+                    echo $this->Translate('unable to write to file') . ' ' . $tmp_fname . ' (' . strlen($buf) . ' bytes)' . "\n";
                     $ok = false;
                 }
                 if ($ok && !fclose($fp)) {
-					echo $this->Translate('unable to close file') . ' ' . $tmp_fname . "\n";
+                    echo $this->Translate('unable to close file') . ' ' . $tmp_fname . "\n";
                     $ok = false;
                 }
                 if ($ok && file_exists($fname) && !unlink($fname)) {
-					echo $this->Translate('unable to delete file') . ' ' . $fname . "\n";
+                    echo $this->Translate('unable to delete file') . ' ' . $fname . "\n";
                     $ok = false;
                 }
                 if ($ok && !rename($tmp_fname, $fname)) {
-					echo $this->Translate('unable to rename file') . ' ' . $tmp_fname . "\n";
+                    echo $this->Translate('unable to rename file') . ' ' . $tmp_fname . "\n";
                     $ok = false;
                 }
                 if ($ok) {
                     $need_reaggregate = true;
-					$b .= ' => ' . $this->Translate('ok');
+                    $b .= ' => ' . $this->Translate('ok');
                 } else {
-                    $b .=  ' => ' . $this->Translate('failed');
+                    $b .= ' => ' . $this->Translate('failed');
                 }
             }
             echo $b . "\n";
@@ -506,17 +505,17 @@ class Csv2Archive extends IPSModule
 
         echo "\n";
         echo $this->Translate('processed files')
-				. '='
-				. $total_files
-				. ', '
-				.  $this->Translate('items inserted')
-				. '='
-				. $total_inserted
-				. ', '
-				. $this->Translate('items updated')
-				. '='
-				. $total_updated
-				. "\n";
+                . '='
+                . $total_files
+                . ', '
+                . $this->Translate('items inserted')
+                . '='
+                . $total_inserted
+                . ', '
+                . $this->Translate('items updated')
+                . '='
+                . $total_updated
+                . "\n";
 
         if ($do_reaggregate && $need_reaggregate) {
             $this->SendDebug(__FUNCTION__, 're-aggregate', 0);
