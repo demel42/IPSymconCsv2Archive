@@ -143,15 +143,13 @@ class Csv2Archive extends IPSModule
             echo '***' . $this->Translate('testmode') . '***' . "\n\n";
         }
 
-        $archiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
-
-        if (AC_GetLoggingStatus($archiveID, $varID) && AC_GetAggregationType($archiveID, $varID) == 1) {
-            echo $this->Translate('Variable has no standard-aggregation') . "\n";
+        if (!$tstamp_col || !$value_col || $tstamp_col == $value_col) {
+            echo $this->Translate('column-number(s) are erroneous') . "\n";
             return;
         }
 
-        if (!$tstamp_col || !$value_col || $tstamp_col == $value_col) {
-            echo $this->Translate('column-number(s) are erroneous') . "\n";
+        if (strlen($delimiter) != 1) {
+            echo $this->Translate('column-delimiter must be a single character') . "\n";
             return;
         }
 
@@ -162,6 +160,13 @@ class Csv2Archive extends IPSModule
 
         if ($varID == '' || $varID == 0) {
             echo $this->Translate('no variable given') . "\n";
+            return;
+        }
+
+        $archiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
+
+        if (AC_GetLoggingStatus($archiveID, $varID) && AC_GetAggregationType($archiveID, $varID) == 1) {
+            echo $this->Translate('Variable has no standard-aggregation') . "\n";
             return;
         }
 

@@ -22,6 +22,7 @@
 			"Perform Import": "Import durchführen",
 			"Module description": "Modulbeschreibung",
 
+			"column-delimiter must be a single character": "der Spalten-Trenner muss ein einzelnes Zeichen sein",
 			"column-number(s) are erroneous": "Spalten-Angaben sind fehlerhaft",
 			"create file": "Anlegen von Datei",
 			"duplicate timestamp": "Zeitstempel ist doppelt",
