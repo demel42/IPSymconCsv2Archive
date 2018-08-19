@@ -108,6 +108,13 @@ class Csv2Archive extends IPSModule
                             'onClick' => 'Csv2Archive_Import($id, $tstamp_type, $delimiter, $with_header, $tstamp_col, $value_col, $overwrite_old, $string_is_base64, $do_reaggregate, $data, $varID, false);'
                         ];
 
+        $formActions[] = ['type' => 'Label', 'label' => '____________________________________________________________________________________________________'];
+        $formActions[] = [
+                            'type'    => 'Button',
+                            'caption' => 'Module description',
+                            'onClick' => 'echo "https://github.com/demel42/IPSymconCsv2Archive/blob/master/README.md";'
+                        ];
+
         $formStatus = [];
         $formStatus[] = ['code' => '101', 'icon' => 'inactive', 'caption' => 'Instance getting created'];
         $formStatus[] = ['code' => '102', 'icon' => 'active', 'caption' => 'Instance is active'];
