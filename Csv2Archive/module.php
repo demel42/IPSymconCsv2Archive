@@ -163,15 +163,18 @@ class Csv2Archive extends IPSModule
             return;
         }
 
-        $archiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
+        $r = IPS_GetVariable($varID);
+		if ($r == false) {
+            echo $this->Translate('variable not found') . "\n";
+            return;
+		}
+        $value_dtype = $r['VariableType'];
 
+        $archiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
         if (AC_GetLoggingStatus($archiveID, $varID) && AC_GetAggregationType($archiveID, $varID) == 1) {
-            echo $this->Translate('Variable has no standard-aggregation') . "\n";
+            echo $this->Translate('variable has no standard-aggregation') . "\n";
             return;
         }
-
-        $r = IPS_GetVariable($varID);
-        $value_dtype = $r['VariableType'];
 
         switch ($tstamp_type) {
             case TSTAMP_FMT_UNIX:

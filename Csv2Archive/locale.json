@@ -51,7 +51,8 @@
 			"unable to write to file": "Fehler bei Schreiben in die Datei",
 			"update file": "Aktualisieren von Datei",
 			"value is invalid": "Wert ist ungültig",
-			"Variable has no standard-aggregation": "Variable hat keine Standard-Aggregation",
+			"variable has no standard-aggregation": "Variable hat keine Standard-Aggregation",
+			"variable not found": "Variable nicht gefunden",
 
 			"Instance getting created": "Instanz wird erstellt",
 			"Instance is active": "Instanz ist aktiv",
