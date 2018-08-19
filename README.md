@@ -28,23 +28,26 @@ Durchgeführte Tests:
 - angegebene Spalten in Ordnung (Spalten ungleich, Spalten passen zur Spaltenanzahl)
 - Variable ist vorhanden und hat eine Standard-Aggregation (also nicht nur 'Zähler').
 - Werte passen zu dem Datentyp der Variable<br>
--- bool: können die Werte _1_/_0_, _true_/_false_, _ja_/_nein_ oder _yes_/_no_ (Gross/Kleinschreibung ist irrelevant) haben<br>
--- int: es wird überprüft, das der Wert nur aus Zahlen und dem optionale Vorzeichen besteht
--- float: es wird geprüft, das der Wert nur aus Zahlen, dem optionalen Dezimaltrenner, Vorzeichen und einem Expotenten (als _e_/_E_) besteht. Bei der Ausgabe in die Archivdatei wird - wie erforderlich - der Punkt als Dezimalrenner verwendet.
--- string: können n der CSV-Datein base64-kodiert sein (siehe oben), ansonsten wird der Wert base64-kodiert ausgegeben.
-- Zeitstempel ist dekodierbar, liegt nach dem 1.1.2000 (vorher liegende Werte werden von IPS nicht beachtet) und nict in der Zukunft
+  - bool: können die Werte _1_/_0_, _true_/_false_, _ja_/_nein_ oder _yes_/_no_ (Gross/Kleinschreibung ist irrelevant) haben<br>
+  - int: es wird überprüft, das der Wert nur aus Zahlen und dem optionale Vorzeichen besteht
+  - float: es wird geprüft, das der Wert nur aus Zahlen, dem optionalen Dezimaltrenner, Vorzeichen und einem Expotenten (als _e_/_E_) besteht. Bei der Ausgabe in die Archivdatei wird - wie erforderlich - der Punkt als Dezimalrenner verwendet.
+  - string: können n der CSV-Datein base64-kodiert sein (siehe oben), ansonsten wird der Wert base64-kodiert ausgegeben.
+- Zeitstempel 
+  - ist dekodierbar
+  - liegt nach dem 1.1.2000 (vorher liegende Werte werden von IPS nicht beachtet) 
+  - nicht in der Zukunft
 - Zeitstempel müssen eindeutig sein, sowohl in der CSV-Datei als auch in eventuell bereits vorhandenen Daten.<br>
 Daher ist es möglich, einen Import erneut durchzuführen, da bereits vorhandenen Daten übersprungen oder überschrieben werden…
 
 Sonstiges:
 - die Einträge in der Achricdatei müssen chronologisch aufsteigend sortiert sein. Dazu werden
-a) die Daten der CSV-Datei sortiert
-b) Daten an der richtigen Stellen in einer vorhandenen Datei eingefügt.
+  - die Daten der CSV-Datei sortiert
+  - Daten an der richtigen Stellen in einer vorhandenen Datei eingefügt.
 - es werden alle Daten eines Monats auf einmal (wenn vorhanen) eingelesen, ergänzt und geschrieben
 
 Ausgaben:
 - Liste der Fehler
-- Anzahl der hinzugefügten oder geänderten Einträge pro Datei und gesamt
+- Anzahl der hinzugefügten oder geänderten Einträge pro Datei und in Summe.
 
 **Wichtig**
 
@@ -53,7 +56,8 @@ Ausgaben:
 * Während des Imports sollte so wenig wie möglich im System passieren, wenn während des Imports Daten dieser Variable empfangen werden, kann es passieren, das diese Werte verloren gehen!
 * Nach dem Import die Daten kontrollieren!
 
-Und ganz wichtig: trotz einiger Tests ist natürlich ein unerwartetes oder fehlerhaftes Verhalten nicht ausgeschlossen. Zudem ist der Import von Daten auf diese Art und Weise nicht offiziell unterstützt. **Die Nutzung dieses Modules erfolgt auf eigenen Gefahr.***
+Und ganz wichtig: trotz einiger Tests ist natürlich ein unerwartetes oder fehlerhaftes Verhalten nicht ausgeschlossen. Zudem ist der Import von Daten auf diese Art und Weise nicht offiziell unterstützt.<br>
+**Die Nutzung dieses Modules erfolgt unbedingt und in jedem Fall auf eigenen Gefahr.**
 
 ## 2. Voraussetzungen
 
@@ -79,7 +83,7 @@ Anschließend erscheint ein Eintrag für das Modul in der Liste der Instanz _Mod
 
 In IP-Symcon nun _Instanz hinzufügen_ (_CTRL+1_) auswählen unter der Kategorie, unter der man die Instanz hinzufügen will, und Hersteller _(sonstiges)_ und als Gerät _Csv2Archive_ auswählen.
 
-Die Werte der Felder im Konfigurationsdialog werden nicht gespeichert sondern werden nur innerhalb des Dialoges benutzt!
+Die Werte der Felder im Konfigurationsdialog werden nicht gespeichert sondern nur innerhalb des Dialoges benutzt!
 
 ### d. Verwendung
 
