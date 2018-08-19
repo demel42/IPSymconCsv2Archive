@@ -164,10 +164,10 @@ class Csv2Archive extends IPSModule
         }
 
         $r = IPS_GetVariable($varID);
-		if ($r == false) {
+        if ($r == false) {
             echo $this->Translate('variable not found') . "\n";
             return;
-		}
+        }
         $value_dtype = $r['VariableType'];
 
         $archiveID = IPS_GetInstanceListByModuleID('{43192F0B-135B-4CE7-A0A7-1475603F3060}')[0];
