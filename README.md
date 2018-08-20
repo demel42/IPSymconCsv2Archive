@@ -92,7 +92,7 @@ Die Werte der Felder im Konfigurationsdialog werden nicht gespeichert sondern nu
 | Eigenschaft                          | Typ      | Beschreibung |
 | :----------------------------------: | :-----:  | :----------------------------------------------------------------------------------------------------------: |
 | Zeitstempel-Format                   | int      | zulässige Formate des Zeitstempels. Hinweis: Zeitstempel nur ab 1.1.2000 und bis zum aktuellen Zeitpunkt     |
-| Trenner                              | string   | Trenner der Spalten. Hinweis: Backslahs-Notation ist möglich, z.B. <TAB> ist **\t**                          |
+| Trenner                              | string   | Trenner der Spalten. Hinweis: Backslahs-Notation ist möglich, z.B. entspricht **\t** einem TAB                |
 | Spaltenüberschrift in der 1. Zeile   | bool     | in der 1. Zeile ist ein Header und soll nicht ausgewertet werden                                             |
 | Spalte des Zeitstempels              | int      | Spalte des Zeitstempels (1-relativ)                                                                          |
 | Spalte des Wertes                    | int      | Spalte des Wertes (1-relativ)                                                                                |
