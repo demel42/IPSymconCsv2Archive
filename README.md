@@ -92,7 +92,7 @@ Die Werte der Felder im Konfigurationsdialog werden nicht gespeichert sondern nu
 | Eigenschaft                          | Typ      | Beschreibung |
 | :----------------------------------: | :-----:  | :----------------------------------------------------------------------------------------------------------: |
 | Zeitstempel-Format                   | int      | zulässige Formate des Zeitstempels. Hinweis: Zeitstempel nur ab 1.1.2000 und bis zum aktuellen Zeitpunkt     |
-| Trenner                              | string   | Trenner der Spalten. Hinweis: Backslahs-Notation ist möglich, z.B. entspricht **\t** einem TAB                |
+| Trenner                              | string   | Trennerzeichen der Spalten.               |
 | Spaltenüberschrift in der 1. Zeile   | bool     | in der 1. Zeile ist ein Header und soll nicht ausgewertet werden                                             |
 | Spalte des Zeitstempels              | int      | Spalte des Zeitstempels (1-relativ)                                                                          |
 | Spalte des Wertes                    | int      | Spalte des Wertes (1-relativ)                                                                                |
@@ -101,6 +101,9 @@ Die Werte der Felder im Konfigurationsdialog werden nicht gespeichert sondern nu
 | Variable automatisch re-aggregieren  | bool     | Variable nach Abschluss des Imports automatisch re-aggregieren                                               |
 | CSV-Datei                            | string   | Datei mit den CSV-Daten                                                                                      |
 | Variable                             | int      | ID der zu ändernden Variablen                                                                                |
+
+Das Trennzeichen kann negeb der Angabe eines normeln Zeichens auch kodierte Zeichen gemäß [php - Escape sequences](
+http://php.net/manual/de/regexp.reference.escape.php) enthalten; so entspricht **\t** einem TAB.
 
 #### Aktionen
 
