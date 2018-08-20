@@ -162,7 +162,7 @@ trait Csv2ArchiveCommon
     }
 
     // Ausgabe einer bool
-    public function bool2str($bval)
+    private function bool2str($bval)
     {
         if (is_bool($bval)) {
             return $bval ? 'true' : 'false';
