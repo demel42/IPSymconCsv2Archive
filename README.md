@@ -125,7 +125,7 @@ Die Werte der Felder im Konfigurationsdialog werden nicht gespeichert sondern nu
 | overwrite_old    | vorhandene Daten überschreiben       |
 | string_is_base64 | Wert in CSV-Datei ist base64-kodiert |
 | do_reaggregate   | Variable automatisch re-aggregieren  |
-| data             | CSV-Datei                            |
+| data             | CSV-Daten                            |
 | VariableID       | Variable                             |
 | test_mode        | Test-Modus                           |
 
