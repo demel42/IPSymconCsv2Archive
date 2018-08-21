@@ -85,6 +85,7 @@ class Csv2Archive extends IPSModule
         $options[] = ['label' => 'English (yyyy/mm/dd HH:MM:SS)', 'value' => TSTAMP_FMT_EN];
 
         $formActions = [];
+        $formActions[] = ['type' => 'Label', 'label' => 'Attention: module only works with the web-console!'];
         $formActions[] = ['type' => 'Select', 'name' => 'tstamp_type', 'caption' => 'Timestamp format', 'options' => $options];
         $formActions[] = ['type' => 'ValidationTextBox', 'name' => 'delimiter', 'caption' => 'Delimiter'];
         $formActions[] = ['type' => 'IntervalBox', 'name' => 'tstamp_col', 'caption' => 'Column of timestamp'];
@@ -148,11 +149,13 @@ class Csv2Archive extends IPSModule
             return;
         }
 
+		$delimiter = stripcslashes($delimiter);
         if (strlen($delimiter) != 1) {
             echo $this->Translate('column-delimiter must be a single character') . "\n";
             return;
         }
 
+		$data = base64_decode($data);
         if (!strlen($data)) {
             echo $this->Translate('no data') . "\n";
             return;
@@ -212,15 +215,19 @@ class Csv2Archive extends IPSModule
         $errors = [];
         $values = [];
         $tstamp_map = [];
+echo "rows=" . print_r($rows, true) . "\n";
         foreach ($rows as $row) {
             $n_row++;
+echo "n_row=$n_row, row=$row\n";
             if ($with_header && $n_row === 1) {
                 continue;
             }
             if ($row === '') {
                 continue;
             }
+echo "row=$row, delimiter=$delimiter\n";
             $fields = str_getcsv($row, $delimiter);
+echo "fields=" . print_r($fields, true) . "\n";
             $n_fields = count($fields);
             if ($n_fields < $min_cols) {
                 $errors[] = ['row' => $n_row, 'msg' => $this->Translate('not enough cols')];

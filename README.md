@@ -1,7 +1,7 @@
 # IPSymconCsv2Archive
 
-[![IPS-Version](https://img.shields.io/badge/Symcon_Version-4.4+-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-![Module-Version](https://img.shields.io/badge/Modul_Version-1.0-blue.svg)
+[![IPS-Version](https://img.shields.io/badge/Symcon_Version-5.0+-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
+![Module-Version](https://img.shields.io/badge/Modul_Version-1.1-blue.svg)
 ![Code](https://img.shields.io/badge/Code-PHP-blue.svg)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![StyleCI](https://github.styleci.io/repos/126683101/shield?branch=master)](https://github.styleci.io/repos/145117879)
@@ -61,7 +61,7 @@ Und ganz wichtig: trotz einiger Tests ist natürlich ein unerwartetes oder fehle
 
 ## 2. Voraussetzungen
 
- - IP-Symcon ab Version 4.4
+ - IP-Symcon ab Version 5.0
 
 ## 3. Installation
 
@@ -92,7 +92,7 @@ Die Werte der Felder im Konfigurationsdialog werden nicht gespeichert sondern nu
 | Eigenschaft                          | Typ      | Beschreibung |
 | :----------------------------------: | :-----:  | :----------------------------------------------------------------------------------------------------------: |
 | Zeitstempel-Format                   | int      | zulässige Formate des Zeitstempels. Hinweis: Zeitstempel nur ab 1.1.2000 und bis zum aktuellen Zeitpunkt     |
-| Trenner                              | string   | Trennerzeichen der Spalten.               |
+| Trenner                              | string   | Trennerzeichen der Spalten.                                                                                  |
 | Spaltenüberschrift in der 1. Zeile   | bool     | in der 1. Zeile ist ein Header und soll nicht ausgewertet werden                                             |
 | Spalte des Zeitstempels              | int      | Spalte des Zeitstempels (1-relativ)                                                                          |
 | Spalte des Wertes                    | int      | Spalte des Wertes (1-relativ)                                                                                |
@@ -143,6 +143,9 @@ GUIDs
   - Csv2Archive: `{C3129C82-96B3-44AA-A98A-0AC5E5A12917}`
 
 ## 7. Versions-Historie
+
+- 1.1 @ 21.08.2018 19:04<br>
+  aufgrund von Fehlern in der Legacy-Konsole und daruas folgender Inkompatibilität funktioniert das Modul nur noch für IPS 5 und Web-Konsole
 
 - 1.0 @ 19.08.2018 11:53<br>
   Initiale Version

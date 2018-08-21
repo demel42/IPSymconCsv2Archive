@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"de": {
+			"Attention: module only works with the web-console!": "Achtung: das Modul funktioniert nur mit der Web-Konsole!",
+
 			"UNIX (seconds from 01.01.1970)": "UNIX (Sekunden ab 01.01.1970)",
 			"Compact (yyyymmddHHMMSS)": "Kompakt (yyyymmddHHMMSS)",
 			"ISO (yyyy-mm-dd HH:MM:SS)": "ISO (yyyy-mm-dd HH:MM:SS)",
