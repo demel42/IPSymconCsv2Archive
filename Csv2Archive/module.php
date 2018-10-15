@@ -261,7 +261,7 @@ class Csv2Archive extends IPSModule
             }
             $tstamp_map[] = $tstamp;
 
-			$ok = false;
+            $ok = false;
             switch ($value_dtype) {
                 case vtBoolean:
                     if (is_bool($value_s)) {
@@ -288,7 +288,7 @@ class Csv2Archive extends IPSModule
                         $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                         $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                         $b = false;
-						break;
+                        break;
                     }
                     $value = intval($value_s);
                     break;
@@ -298,7 +298,7 @@ class Csv2Archive extends IPSModule
                         $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                         $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
                         $b = false;
-						break;
+                        break;
                     }
                     $f = floatval($value_s);
                     $d = strlen($f) - strlen(floor($f));
@@ -311,9 +311,9 @@ class Csv2Archive extends IPSModule
                     $value = $string_is_base64 ? $value_s : base64_encode($value_s);
                     break;
             }
-			if (!$ok) {
-				continue;
-			}
+            if (!$ok) {
+                continue;
+            }
             $values[$tstamp] = $value;
         }
 
