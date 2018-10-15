@@ -261,9 +261,9 @@ class Csv2Archive extends IPSModule
             }
             $tstamp_map[] = $tstamp;
 
+			$ok = false;
             switch ($value_dtype) {
                 case vtBoolean:
-                    $ok = false;
                     if (is_bool($value_s)) {
                         $b = boolval($s);
                         $ok = true;
@@ -278,7 +278,7 @@ class Csv2Archive extends IPSModule
                         $e = 'value is invalid';
                         $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                         $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
-                        continue;
+                        break;
                     }
                     $value = $b ? '1' : '0';
                     break;
@@ -287,7 +287,8 @@ class Csv2Archive extends IPSModule
                         $e = 'value is invalid';
                         $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                         $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
-                        continue;
+                        $b = false;
+						break;
                     }
                     $value = intval($value_s);
                     break;
@@ -296,7 +297,8 @@ class Csv2Archive extends IPSModule
                         $e = 'value is invalid';
                         $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
                         $errors[] = ['row' => $n_row, 'msg' => $this->Translate($e)];
-                        continue;
+                        $b = false;
+						break;
                     }
                     $f = floatval($value_s);
                     $d = strlen($f) - strlen(floor($f));
@@ -309,6 +311,9 @@ class Csv2Archive extends IPSModule
                     $value = $string_is_base64 ? $value_s : base64_encode($value_s);
                     break;
             }
+			if (!$ok) {
+				continue;
+			}
             $values[$tstamp] = $value;
         }
 
