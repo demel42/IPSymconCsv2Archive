@@ -25,13 +25,11 @@ if (@constant('IPS_BASE') == null) {
     define('KL_CUSTOM', IPS_LOGMESSAGE + 7);			// User Message
 }
 
-if (!defined('vtBoolean')) {
-    define('vtBoolean', 0);
-    define('vtInteger', 1);
-    define('vtFloat', 2);
-    define('vtString', 3);
-    define('vtArray', 8);
-    define('vtObject', 9);
+if (!defined('VARIABLETYPE_BOOLEAN')) {
+    define('VARIABLETYPE_BOOLEAN', 0);
+    define('VARIABLETYPE_INTEGER', 1);
+    define('VARIABLETYPE_FLOAT', 2);
+    define('VARIABLETYPE_STRING', 3);
 }
 
 // Datumsformate
@@ -263,7 +261,7 @@ class Csv2Archive extends IPSModule
 
             $ok = false;
             switch ($value_dtype) {
-                case vtBoolean:
+                case VARIABLETYPE_BOOLEAN:
                     if (is_bool($value_s)) {
                         $b = boolval($s);
                         $ok = true;
@@ -282,7 +280,7 @@ class Csv2Archive extends IPSModule
                     }
                     $value = $b ? '1' : '0';
                     break;
-                case vtInteger:
+                case VARIABLETYPE_INTEGER:
                     if (!preg_match('|^[-+]?[0-9]+$|', $value_s)) {
                         $e = 'value is invalid';
                         $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
@@ -292,7 +290,7 @@ class Csv2Archive extends IPSModule
                     }
                     $value = intval($value_s);
                     break;
-                case vtFloat:
+                case VARIABLETYPE_FLOAT:
                     if (!preg_match('|[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?|', $value_s)) {
                         $e = 'value is invalid';
                         $this->SendDebug(__FUNCTION__, 'err=' . $e . ', n_row=' . $n_row . ', fields=' . print_r($fields, true), 0);
@@ -307,7 +305,7 @@ class Csv2Archive extends IPSModule
                     }
                     $value = number_format($f, $d, '.', '');
                     break;
-                case vtString:
+                case VARIABLETYPE_STRING:
                     $value = $string_is_base64 ? $value_s : base64_encode($value_s);
                     break;
             }
