@@ -34,9 +34,9 @@ trait Csv2ArchiveCommon
         }
 
         if (IPS_GetKernelVersion() >= 5) {
-            $ret = parent::SetValue($Ident, $Value);
+            @$ret = parent::SetValue($Ident, $Value);
         } else {
-            $ret = SetValue($varID, $Value);
+            @$ret = SetValue($varID, $Value);
         }
         if ($ret == false) {
             $this->SendDebug(__FUNCTION__, 'mismatch of value "' . $Value . '" for variable ' . $Ident, 0);
