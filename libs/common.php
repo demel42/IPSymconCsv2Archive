@@ -60,7 +60,7 @@ trait Csv2ArchiveCommon
         return $ret;
     }
 
-    private function CreateVarProfile($Name, $ProfileType, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits, $Icon, $Asscociations = '')
+    private function CreateVarProfile($Name, $ProfileType, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits, $Icon, $Associations = '')
     {
         if (!IPS_VariableProfileExists($Name)) {
             IPS_CreateVariableProfile($Name, $ProfileType);
@@ -68,8 +68,8 @@ trait Csv2ArchiveCommon
             IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
             IPS_SetVariableProfileDigits($Name, $Digits);
             IPS_SetVariableProfileIcon($Name, $Icon);
-            if ($Asscociations != '') {
-                foreach ($Asscociations as $a) {
+            if ($Associations != '') {
+                foreach ($Associations as $a) {
                     $w = isset($a['Wert']) ? $a['Wert'] : '';
                     $n = isset($a['Name']) ? $a['Name'] : '';
                     $i = isset($a['Icon']) ? $a['Icon'] : '';
